@@ -1,5 +1,4 @@
-/*// Step 00: can't understand, use of classes
-
+/*
 // Step 01: types
 
 var a: number = 1;
@@ -7,7 +6,8 @@ console.log(a);
 a = 12;         //strong typing means types ko strongly follow krna hai
 
 var b = 'anna';
-b = '3';        //type inference
+b = '3'; 
+c = 78.0;       //type inference told b is string so error when u try to assign it a number
 
 // Step 02: const & let keywords
 
@@ -33,15 +33,15 @@ for(var j = 0; j < 3; j++) {
 // Step 03: Duck Typing
 
 let mytype = {name : "ann", id : 3};
-mytype = {id : 1, name : "saibu"};          // properties can be reordered
-// mytype = {id : 1, namely : "saibu"};     // error: property name and type should be same
+mytype = {id : 1, name : "simmi"};          // properties can be reordered
+// mytype = {id : 1, namely : "simmi"};     // error: property name and type should be same
 // mytype = {name : "abc", id : 1, employed: true};    // error: additional property
 
 //A type can include an index signature to explicitly indicate that excess properties are permitted in with fresh objects:
 
 let t : {x : number, [t:string] : any}; //declaration
 // property1 type is number and comma k bad wali chiz ko kehte hn index signature
-// mtlb pehli property x hai number type ki or uske bad 't' number of properties exist kr skti hn
+// mtlb pehli property x hai number type ki or uske bad 't' number of properties exist kr skti hn yani jitni b
 // '[t: string] : any' is index signature means is property ka koi b name hoga string type ka or iski value ki type any hogi
 
 t = {x : 7, za : "120", z : true, a : null};    // assignment: name hai string and value hai any type ki
@@ -52,7 +52,7 @@ mytype = mytype2;   // minimum properties requirement fulfilled so no masla
 
 // console.log(mytype.status); // compile time error 
 //qk status mytype me exist ni krta but it will run and print 'true'[its valid JS but invalid TS]
-console.log(mytype.id); // 2 qk it displays mytype2 ki id
+console.log(mytype.id); // 2 qk it displays mytype2 ki id now
 
 let mt = {id: 1, name: "abc"};
 mytype=mt;  // same hn to ok 
@@ -71,13 +71,13 @@ arrr.push(false);
 arr.push(1);
 
 console.log(array[1]);  // access array elements as usual using its index
-console.log(array);     // displays entire array
+console.log(array);     // displays the entire array when index is not specified
 
 // Step 05: Any type
 
 let mType : any = { name: "Zia", id: 1 };
 mType = { id: 2,  name: "Tom" };// can only assign a type which has the at least the same properties
-mType = { id: 3,  name: "Mike", gender: false };//becuase of any it assign a different type
+mType = { id: 3,  name: "Mike", gender: false };//becuase of any it assigns a different type
 mType = { name: "Mike", gender: false };//can even reduce the properties because of any type
 mType = {age : 28};             //koi b purani property na ho 1 new prop ho to b chalega
 mType = {age: true, id: "abcdef", name: 8}; //new old properties mix hon tb b fine
@@ -95,7 +95,7 @@ notSure = undefined;
 // Step 06 : Explicit Casting
 
 var casting = <any> {name: "anny", course: "typescript"};   // syntax <> on right hand side
-var casti = {name: "sadaf", id: 5} as any;                  // alternate syntax as 'type'
+var casti = {name: "sadaf", id: 5} as any;                  // alternate syntax :- as 'type' in end 
 
 casting = {name: "ann"};    // only 1 parameter p b chal gya
 casting = {id: 6};  // koi b parameter ni dia ik naya dedia chal gya
@@ -103,9 +103,14 @@ casting = {course: "bootstrap", class: 7};  // ik naya ik purana chal gya
 casting = {name : 7, course: true}; //values type change ki phir b chal gya due to explicit casting
 
 var age = <any> 25; 
+console.log(typeof(age)); //number
+
+//type to 'age' ki number hi hai but koi or type assign krenge to masla ni hoga qk explicitly cast krwadia hai "any" me
 
 var a = 6 as any;
 console.log(typeof(a)); //number
+a = "string";
+console.log(typeof(a)); //string
 
 var bi = true;
 age = bi;
@@ -121,18 +126,18 @@ let abcd = 5 as number;
 
 enum signal {red, green, yellow}; // syntax to declare an enum
 let color : signal = signal["green"];   //syntax to use the index of a member of enum with [" "]
-let col : number = signal.yellow; // alternate syntax to use the index of a member of enum with a dot
 let colo : string = signal[0];  // syntax to use the value of member of enum
-console.log(color + colo + col);    // 1red2
+let col : number = signal.yellow; // alternate syntax to use the index of a member of enum with a dot
+console.log(color + colo + col);    // 1red2 (+ is used for concatenation in console.log())
 
 enum sig {pink, purple = 5, blue}; // can assign custom index to each or anyone of the members
 // the next i.e. blue will auto be assigned the index of 6 by ++ the specified index for purple i.e.5
 
 console.log(sig.blue);  // 6
-console.log(sig[0] + sig[1]); // sig[0] = pink and sig[1] = undefined
+console.log(sig[0] + sig[1]); // sig[0] = pink and sig[1] = undefined qk purple ko index=5 dia hai
 
 enum door {open, close, ajar};
-console.log(door.open.toString()); //0 ??? .toString() ka method isko string me convert q nhi krha??
+console.log(door.open.toString()); //0 .toString() ka method isko string me convert krha hai from 0 to '0'.
 console.log(door.open); //0
 console.log(door["open"].toString()); //0
 console.log(door[0].toString()); //open
@@ -142,7 +147,7 @@ console.log(door[0].toString()); //open
 const enum signal {red, green, yellow}; 
 //console.log(signal[0]); // error: a const enum member can only be accessed using a string literal
 console.log(signal["red"]); //0
-console.log(signal["red"] + signal.green);  // 1 [qk it adds 0 n 1 making the output 1]
+console.log(signal["red"] + signal.green);  // 1 [qk it adds 0 n 1 making the output 1, qk numbers p + apply kro add hoga concat ni]
 
 // Step 09: Function
 
@@ -156,7 +161,7 @@ console.log(addition(1,2)); //3
 var diff = function (num1: number, num2: number) : number { //anonymous function
     return num1+num2;
 };
-console.log(diff(3,2)); //5
+console.log(diff(3,2)); //5 qk function has no name so we use the var to call the anonymous function
 
 let prod : (num1: number, num2: number) => number = function (x: number, y: number): number { //Anonymous function with explict type
     return x*y;
@@ -169,7 +174,7 @@ console.log(quotient(15,3));    //5
 
 // in every function there exists an array comprising of all the supplied parameters called "arguments".
 function testParams(...x) { //rest parameter x ki type define ni ki yahan bus 
-    if(arguments.length > 0) {
+    if(arguments.length > 0) { // means agr arguments pass hue hn to
         for (var i = 0; i < arguments.length; i++) {
             console.log(arguments[i]);  // called the arguments array
             console.log(x[i]);  // used the rest parameter here 'x'
@@ -189,7 +194,7 @@ addition(3);    // qk 1 parameter is optional
 //addition(); // error: supplied parameters dont match any signature of call target.
 
 function a (x?:number, y:number): void {}  // error: a required parameter cannot follow optional
-// i.e. optional parameter always comes in the end of the parameters list
+// i.e. optional parameter always comes last (in the end of the parameters list)
 
 var add: (x: number, y?: number) => number = function (x: number, y?: number): number {
     return x+y;
@@ -200,22 +205,23 @@ add(3,2);
 // Step 11: Function with default parameter
 
 function nam(fnam: string, lnam = "Khan"): string { // parameter 'lnam' is default parameter here
-    if(lnam) {
+    if(lnam) { if lname is true, i.e. lname exists
         return fnam + " " + lnam;
     }
     else {
         return fnam;
     }
-}   // default parameter b like optional parameter end of the list p ata hai
+}   // default parameter bhi like optional parameter end of the list p ata hai
 
 console.log(nam("anna")); // jb 2nd parameter ni dia to default value use hui: anna khan
 console.log(nam("anthony","gonzalwis")); // 2nd parameter dia to default value ignored: anthony gonzalwis
 
 //var naam : (fnam: string, lnam="john") => string = function (x:string, y? = "Sheikh") {}
 // error1: "john" p aya: parameter ko initialize sirf function ya constructor me hi krskte hn
-// error2: y? = "Sheikh": parameter cannot have ? and initializer mtlb dono 7 ni hoskte
+// error2: y? = "Sheikh": parameter cannot have ? and initializer mtlb dono 7 ni hoskte mtlb type jahan btarhe hn wahan btau k optional hai or function me uski default value do
+// btw default parameters are optional
 
-var naam : (fnam: string, lnam? : string) => string = function (x:string, y = "Sheikh") {
+var naam : (fnam: string, lnam? : string) => string = function (x:string, y = "Sheikh") { //jahan type define hori hai wahan btadia k optional parameter hai or function me initialize krdia default value se 
     return x + " " + y;
 }
 console.log(naam("huma"));
@@ -223,13 +229,13 @@ console.log(naam("faiza","kanwal"));
 
 // Step 12: function with rest parameter
 
-// when we have to use a variable number of function parameters, i.e. how many parameters would be passed
-// is not fixed at the time of function definition, then we use rest parameters. 
-// its an array of parameters to be passed and comes at the end of parameter list like optional and default paraameter
-// a rest parameter cannot be optional and its type is array
+// when we have to use a variable number of function parameters, i.e. how many parameters would be passed is not fixed at the time of function definition, then we use rest parameters. 
+// its an array of parameters to be passed and comes at the end of parameter list like optional and default parameter
+// a rest parameter cannot be optional mtlb cant have ? lekin agr koi parameter pass na b kro to its ok
+// a rest parameter has type: array
 // a rest parameter cannot have an initializer, mtlb isey default b ni bana skte
 
-function add(num1: number, num2: number, ...num: number[]): number { // syntax of rest parameter is to begin with ...
+function add(num1: number, num2: number, ...num: number[]): number { // syntax of rest parameter is ... before the parameter name
     var sum : number = num1 + num2;
     for (let i = 0; i < num.length; i++) {
         sum += num[i];
@@ -251,14 +257,13 @@ console.log(sum(1,2)); //3
 
 // Step 13: Lambda Functions (single-line functions)
 
-// lambda func m this ka keyword exist nhi krta.if we use "this" then parent func ka this milega
-// aur agr parent func na ho to this me window object milega
+// lambda func m this ka keyword exist nhi krta. if we use "this" then parent func ka this milega aur agr parent func na ho to this me window object milega
 
 //console.log(add("anna","mary"));    
 // error: add is not a function, define krne se pehle call ni krskte anonymous function ko
 // anonymous function wo jo function k keyword se declare ni kie hon like this one
 
-var add = (x: string, y: string): string => x+y;
+var add = (x: string, y: string): string => x+y; //lambda function: its denoted by => 
 console.log(add("2","4"));
 console.log(add("Anna","Mary"));    
 
@@ -266,7 +271,7 @@ var myFunction = f => { this.x = "x"; } // automatically creating the that-equal
 // myFunction is a function with 'f' as its only parameter then 'fat-arrow' the sign of lambda function
 // "this.x ='x';" this ka keyword btaraha hai is scope me means function definition me x ki value "x" hai
 
-//When compiled, TypeScript automatically makes sure this points to my class instead of the enclosed function:
+//When compiled, TypeScript automatically makes sure this points to my class instead of the enclosed function: output js shown below
 //var _this = this;
 //var myFunction = function (f) { _this.x = "x"; };
 
@@ -279,20 +284,22 @@ function f(text: string) { //simple function
 function callingfunc(text: string, callback: (x: string) => void) { // callback function:func that takes another func as a parameter 
     callback(text);    
 }
+// function ka keyword then uska nam phir (parameter name: type) yahan 2 hn 2nd is a function named callback that takes a string argument and => void means it returns nothing
 
-callingfunc("Hello World", f); // callback function ko call kia hai
+callingfunc("Hello World", f); // callback function ko call kia hai 
 
 // Step 15: Function Overloads: multiple function signatures for the same function
 
-// Explanation: we declare same func with diff param types as a prototype b4 func definition
+// Explanation: we declare same function with different parameter types as a prototype b4 func definition
 // 1.none of the function signatures on the first three lines actually have a function body. 
 // 2.the final function definition uses the type specifier of 'any' and eventually includes the function body. 
 // 3.v r limiting the function by using these function overload signatures, to only accept two parameters that are of the same type.
+// 4. overloads must be ordered from specific to general like pehla overload lets say 'string' ho or last me 'any' :thats general
 
-function add (x: string, y: string): string;
-function add (x: number, y: number): number;
-function add (x: boolean, y: boolean): boolean;
-function add (x: any, y: any): any {
+function add (x: string, y: string): string; // overload
+function add (x: number, y: number): number; // overload
+function add (x: boolean, y: boolean): boolean; //overload
+function add (x: any, y: any): any { // function definition that has 3 overloads
     return x + y;
 }
 console.log("Numbers passed", add(1,2));
@@ -319,7 +326,7 @@ console.log(add("9"));
 
 function age(x: number|number[]) {
     var sum : number = 0;
-    if(typeof x === "object") { // if we chk typeof x here, it'll say "object" thats why instead of 'array' i use 'object'
+    if(typeof x === "object") { // if we chk typeof x here, it'll say "object" thats why instead of 'array' i've used 'object'
         for(var i = 0; i < x.length; i++) {
             sum += x[i];
         }
@@ -335,8 +342,6 @@ console.log(age(null)); // its treating "null" as an object.no compiler error bu
 
 // Step 16b: Custom Type Guards
 //Guard funcs r denoted by their “a is X” return type,which returns boolean and signals to compiler what the expected type now is
-
-//??? jb interface ka topic parh lungi tb samjh ayega exactly
 
 interface Animal {name: string; }
 interface Cat extends Animal { meow(); }
@@ -362,20 +367,25 @@ num = "anny";
 var nam: strnum = "abc";
 nam = 8;
 
-type fun = () => void;  // function that takes no parameter and returns nothing
+type f = () => void;  // function that takes no parameter and returns nothing
 type funct = (text: string) => void;
 
 g("hey"); // function call
-fun(); // function call
+f(); // function call
+//a(); // error: definition se pehle call ni krskte anonymous function ko
 
-function fun() {
-    console.log("A function with no paraameter");
+var a: f = function(): void { // f used instead of () => void
+    console.log("using f as a type alias");
+};
+a();
+
+function f() {
+    console.log("A function with no parameter");
 } 
 
 function g(funct) {
-    console.log("A function with a string parameter");        
+    console.log("A function with a string parameter : " + funct);        
 }
-*/
 
 // Step 18: Tuples: Tuple types have the advantage to accurately describe the type of an array of mixed types
 
@@ -387,3 +397,13 @@ arr = [false, 678, 0987, true, 90, 908, true, false, 76765, 0.789];
 
 var array : [string, number] = ["a",0,0,9,9,0,"b","c"];
 //array = [0,"a"]; //error: [num,str] is not assignable to [str,num]
+
+//trying an example from book chp 2 and its the toString experiment
+
+var a: number = 1;
+var b: string = a.toString(); // its possible to apply .toString() method on a number type var so it converts 1 to '1'
+
+console.log(a+b); // it returns the number value 
+console.log(typeof a.toString()); // and its type is now string, but typeof a = number and a.toString() is of type string
+*/
+
